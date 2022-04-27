@@ -19,8 +19,10 @@ const ViewDashboard = () => {
     setSearch(e.target.value);
     if (e.target.value) {
       setSearchedValues(
-        articles.filter(({ abstract }) =>
-          abstract.toLowerCase().includes(e.target.value)
+        articles.filter(
+          ({ abstract, lead_paragraph }) =>
+            abstract.toLowerCase().includes(e.target.value) ||
+            lead_paragraph.toLowerCase().includes(e.target.value)
         )
       );
     } else {
