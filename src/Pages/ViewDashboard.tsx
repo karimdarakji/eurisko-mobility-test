@@ -2,18 +2,19 @@ import { Container, Grid, TextField } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Articles from "../Components/Articles";
 import Logout from "../Components/Logout";
+import { IArticle } from "../global";
 import { useGetArticlesQuery } from "../redux/apis/ArticlesAPI";
 import styles from "../styles/Dashboard.module.scss";
 
 const ViewDashboard = () => {
   const [page, setPage] = useState(0);
-  const { data = [], isLoading } = useGetArticlesQuery(page);
+  const { data = [], isLoading, error } = useGetArticlesQuery(page);
 
-  const [articles, setArticles] = useState<any[]>([]);
+  const [articles, setArticles] = useState<IArticle[]>([]);
 
   // search function
   const [search, setSearch] = useState("");
-  const [searchedValues, setSearchedValues] = useState<any>([]);
+  const [searchedValues, setSearchedValues] = useState<IArticle[]>([]);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     if (e.target.value) {
@@ -33,7 +34,7 @@ const ViewDashboard = () => {
     (node: any) => {
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver(async entries => {
+      observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting) {
           setPage(page + 1);
         }
@@ -41,6 +42,7 @@ const ViewDashboard = () => {
 
       if (node) observer.current.observe(node);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [articles]
   );
 
@@ -50,6 +52,7 @@ const ViewDashboard = () => {
       const combineData = [...articles, ...data];
       setArticles([...new Set(combineData)]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (
@@ -69,6 +72,9 @@ const ViewDashboard = () => {
                 [0, 1, 2].map((value, index) => (
                   <Articles key={`article${index}`} isLoading />
                 ))}
+              {error && (
+                <div style={{ marginTop: "10%" }}>Something went wrong</div>
+              )}
               {search ? (
                 searchedValues.length ? (
                   searchedValues.map((value: any, index: number) => (

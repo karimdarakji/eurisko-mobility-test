@@ -6,9 +6,9 @@ export const ArticlesApi = createApi({
   reducerPath: "ArticlesApi",
   baseQuery: baseQueryWithToken,
   tagTypes: ["Article"],
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getArticles: builder.query<any, number>({
-      query: page => `articles?page=${page}`,
+      query: (page) => `articles?page=${page}`,
       providesTags: ["Article"],
       transformResponse: (response: any) => {
         return response?.response?.docs;

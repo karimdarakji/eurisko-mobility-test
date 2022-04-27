@@ -24,7 +24,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: values => login(values),
+    onSubmit: (values) => login(values),
   });
 
   const login = async (values: any) => {
@@ -41,6 +41,7 @@ const Login = () => {
       );
       navigate("/home");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, navigate]);
 
   return (
@@ -87,7 +88,7 @@ const Login = () => {
         size="large"
         type="submit"
         disabled={
-          Object.values(formik.values).every(v => v.length === 0) ||
+          Object.values(formik.values).every((v) => v.length === 0) ||
           Object.keys(formik.errors).length > 0
         }
       >
