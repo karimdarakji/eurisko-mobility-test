@@ -1,3 +1,25 @@
+This app is built using obviously React + Typscript and i used the following libraries:
+
+    - redux-toolkit + rtk-query: for state management and api calls
+    - redux persist + encrypt: to persist the state from the store on refresh by encrypting and pushing it to the local storage 
+    - mui for design
+    - react router v6
+    - formik and yup for form validation
+    - sass
+
+
+1- app folder:
+    a- store file for redux:
+         -- It includes setting up redux by combining reducers and using persist
+    b- hooks file used to stop giving the same type on each dispatch and useSelector
+
+2- Components folder: 
+    -- Has the articles and login components, and the requiresAuth file which helps us identify if the user is authorized to go to the home page
+
+3- Redux folder:
+    a- all slices and queries + mutations are included in this folder
+    b- utils folder that has the custom fetch base function as interceptor
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
